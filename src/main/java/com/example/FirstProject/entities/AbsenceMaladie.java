@@ -15,6 +15,7 @@ public class AbsenceMaladie {
     private Date dateDebut;
     private Date dateFin;
     private Integer nombreJours;
+    private String status;
     @ManyToOne
     private Collaborateur collaborateur;
     @ManyToMany(fetch = FetchType.EAGER)
