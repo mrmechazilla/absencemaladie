@@ -1,7 +1,11 @@
 # Déclaration Absence Maladie
 
-A brief description of what this project does.
+Hello
 
-## Hello brother
+## Technologies
 
-This project aims at cretaing a web application
+- Spring Boot
+- Angular
+- Spring Security
+
+
