@@ -20,4 +20,12 @@ public class AbsenceMaladie {
     private Collaborateur collaborateur;
     @ManyToMany(fetch = FetchType.EAGER)
     private Collection<AgentAdmin> agentAdmins;
+
+    public AbsenceMaladie(long id, Date date_debut, Date date_fin, int nombreJours, String satuts) {
+        this.id = id;
+        this.dateDebut = date_debut;
+        this.dateFin = date_fin;
+        this.nombreJours = nombreJours;
+        this.status = satuts;
+    }
 }

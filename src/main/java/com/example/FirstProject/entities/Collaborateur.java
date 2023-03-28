@@ -16,4 +16,8 @@ public class Collaborateur extends Utilisateur {
     private Long id;
     @OneToMany(mappedBy = "collaborateur")
     private Collection<AbsenceMaladie> absenceMaladie;
+
+    public Collaborateur(long l) {
+        this.id = l;
+    }
 }

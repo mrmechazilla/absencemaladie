@@ -17,4 +17,8 @@ public class AgentAdmin extends Utilisateur {
     private Long id;
     @ManyToMany(mappedBy = "agentAdmins", fetch = FetchType.EAGER)
     private Collection<AbsenceMaladie> absenceMaladies;
+
+    public AgentAdmin(long l) {
+        this.id = l;
+    }
 }
