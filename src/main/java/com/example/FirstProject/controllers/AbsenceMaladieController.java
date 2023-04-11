@@ -1,37 +1,36 @@
 package com.example.FirstProject.controllers;
 
-import com.example.FirstProject.entities.AbsenceMaladie;
+import com.example.FirstProject.dto.DTOAbsenceMaladie;
 import com.example.FirstProject.services.AbsenceMaladieService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.MediaType;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
+import java.util.Date;
+import java.util.Objects;
 
 @RestController
-@RequestMapping("/absences")
+@RequestMapping("/absencemaladie")
 public class AbsenceMaladieController {
-
-    //comentaire de test
     @Autowired
     private AbsenceMaladieService absenceMaladieService;
+    // @RequestParam("dateDebut") Date dateDebut,
+    // @RequestParam("dateFin") Date dateFin,
+    @PostMapping(path = "/save")
+    public void saveAbsenceMaladie(@RequestParam("id") Long idColab,
+                                   @RequestParam("nombreJours") Integer nombreJours,
+                                   @RequestParam("document") MultipartFile multipartFiles) throws Exception {
+        DTOAbsenceMaladie dtoAbsenceMaladie = new DTOAbsenceMaladie();
+        //dtoAbsenceMaladie.setDateDebut(dateDebut);
+        //dtoAbsenceMaladie.setDateFin(dateFin);
+        dtoAbsenceMaladie.setNombreJours(nombreJours);
+        System.out.println(idColab);
+        System.out.println(dtoAbsenceMaladie);
+        String filename = StringUtils.cleanPath(Objects.requireNonNull(multipartFiles.getOriginalFilename()));
+        System.out.println(filename);
+        absenceMaladieService.saveAbsenceMaladie(idColab, multipartFiles, dtoAbsenceMaladie); //
 
-    @PostMapping("/addabsencemaladie")
-    public ResponseEntity<AbsenceMaladie> addAbsenceMaladie(@RequestBody AbsenceMaladie absenceMaladie) {
-        AbsenceMaladie addedAbsenceMaladie = absenceMaladieService.addAbsenceMaladie(absenceMaladie);
-        return new ResponseEntity<>(addedAbsenceMaladie, HttpStatus.CREATED);
-    }
-
-    @GetMapping("/getallabsencemaladie")
-    public ResponseEntity<List<AbsenceMaladie>> getAllAbsencesMaladies() {
-        List<AbsenceMaladie> absencesMaladies = absenceMaladieService.getAbsenceMaladie();
-        return new ResponseEntity<>(absencesMaladies, HttpStatus.OK);
-    }
-
-    @GetMapping("/{status}")
-    public ResponseEntity<AbsenceMaladie> getAbsenceMaladieById(@PathVariable String status) {
-        AbsenceMaladie absenceMaladie = (AbsenceMaladie) absenceMaladieService.getAbsenceMaladieByStatus(status);
-        return new ResponseEntity<>(absenceMaladie, HttpStatus.OK);
     }
 }
