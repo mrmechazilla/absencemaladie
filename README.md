@@ -1,7 +1,13 @@
 # Déclaration Absence Maladie
 
-A brief description of what this project does.
+Hello, this is the backend code for a spring boot application for declaring sick leave absence at Capgemini Technology Services.
 
-## Hello brother
+## Technologies
 
-This project aims at cretaing a web application
+- Spring Boot
+- Angular
+- Spring Security with JWT
+
+## To Run this project
+
+to run this project you will need to clone it using the git command "git clone " 
