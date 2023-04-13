@@ -1,27 +1,44 @@
 package com.example.FirstProject.services;
 
+import com.example.FirstProject.dto.DTOAbsenceMaladie;
 import com.example.FirstProject.entities.AbsenceMaladie;
+import com.example.FirstProject.entities.Collaborateur;
+import com.example.FirstProject.entities.Document;
 import com.example.FirstProject.repositories.AbsenceMaladieRepository;
+import com.example.FirstProject.repositories.CollaborateurRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AbsenceMaladieService {
+    private final DocumentService documentService;
+    private final AbsenceMaladieRepository absenceMaladieRepository;
+    private final CollaborateurRepository collaborateurRepository;
     @Autowired
-    private AbsenceMaladieRepository absenceMaladieRepository;
+    public AbsenceMaladieService(DocumentService documentService, AbsenceMaladieRepository absenceMaladieRepository, CollaborateurRepository colabRepository) {
+        this.documentService = documentService;
+        this.absenceMaladieRepository = absenceMaladieRepository;
+        this.collaborateurRepository = colabRepository;
+    }
 
-    public AbsenceMaladie addAbsenceMaladie(AbsenceMaladie absenceMaladie){
+    public void saveAbsenceMaladie(Long idColab,
+                                   MultipartFile multipartFiles,
+                                   DTOAbsenceMaladie dtoAbsenceMaladie) throws Exception {
+        Document document =  documentService.uploadDocument(multipartFiles);
+        Optional<Collaborateur> colab = collaborateurRepository.findById(idColab);
+        Collaborateur collaborateur1 = colab.get();
+        System.out.println(collaborateur1);
+
+        AbsenceMaladie absenceMaladie = new AbsenceMaladie();
+        absenceMaladie.setDocument(document);
+        absenceMaladie.setCollaborateur(collaborateur1);
+        absenceMaladie.setDateDebut(dtoAbsenceMaladie.getDateDebut());
+        absenceMaladie.setDateFin(dtoAbsenceMaladie.getDateFin());
+        absenceMaladie.setNombreJours(dtoAbsenceMaladie.getNombreJours());
+        System.out.println(absenceMaladie);
+
         absenceMaladieRepository.save(absenceMaladie);
-        return absenceMaladie;
-    }
-
-    public List<AbsenceMaladie> getAbsenceMaladieByStatus(String status){
-        return absenceMaladieRepository.findByStatus(status);
-    }
-
-    public List<AbsenceMaladie> getAbsenceMaladie(){
-        return absenceMaladieRepository.findAll();
-    }
-}
+}}
