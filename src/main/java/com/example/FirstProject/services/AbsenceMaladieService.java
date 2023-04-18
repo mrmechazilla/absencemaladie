@@ -9,7 +9,10 @@ import com.example.FirstProject.repositories.CollaborateurRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import org.w3c.dom.stylesheets.LinkStyle;
 
+import javax.persistence.EntityNotFoundException;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -41,4 +44,19 @@ public class AbsenceMaladieService {
         System.out.println(absenceMaladie);
 
         absenceMaladieRepository.save(absenceMaladie);
-}}
+}
+
+    public List<AbsenceMaladie> findAllAbsenceMaladie(){
+        return absenceMaladieRepository.findAll();
+    }
+
+    public void deleteAbsenceMaladie(Long id){
+        absenceMaladieRepository.deleteById(id);
+    }
+
+    public AbsenceMaladie updateStatus(Long id, String status) {
+        AbsenceMaladie absenceMaladie = absenceMaladieRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Entity not found"));
+        absenceMaladie.setStatus(status);
+        return absenceMaladieRepository.save(absenceMaladie);
+    }
+}

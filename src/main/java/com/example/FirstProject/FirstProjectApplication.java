@@ -26,7 +26,7 @@ public class FirstProjectApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		utilisateurRepository.save(new Utilisateur(1L,"nom 1", "prenom 1", "email1@gmail.com", "1234"));
+		utilisateurRepository.save(new Utilisateur(1L,"youssef", "prenom 1", "youssef@capgemini.com", "1234"));
 		utilisateurRepository.save(new Utilisateur(2L,"nom 2", "prenom 2", "email2@gmail.com", "1234"));
 		utilisateurRepository.save(new Utilisateur(3L,"nom 3", "prenom 3", "email3@gmail.com", "1234"));
 		collaborateurRepository.save(new Collaborateur(1L,null));
