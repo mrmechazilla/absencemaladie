@@ -17,9 +17,11 @@ public class UtilisateurService {
     }
 
     public Optional<Utilisateur> getUserById(Long id){
+
         return utilisateurRepository.findById(id);
     }
     public List<Utilisateur> getAllUsers(){
+
         return utilisateurRepository.findAll();
     }
     public void deleteUserById(Long id) {
@@ -27,6 +29,7 @@ public class UtilisateurService {
     }
 
     public Optional<Utilisateur> getUserByUsername(String email) {
+
         return utilisateurRepository.findByEmail(email);
     }
 }

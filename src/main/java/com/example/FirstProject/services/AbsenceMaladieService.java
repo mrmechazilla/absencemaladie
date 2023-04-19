@@ -12,6 +12,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.w3c.dom.stylesheets.LinkStyle;
 
 import javax.persistence.EntityNotFoundException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,7 +28,7 @@ public class AbsenceMaladieService {
         this.absenceMaladieRepository = absenceMaladieRepository;
         this.collaborateurRepository = colabRepository;
     }
-
+// MultipartFile multipartFiles,
     public void saveAbsenceMaladie(Long idColab,
                                    MultipartFile multipartFiles,
                                    DTOAbsenceMaladie dtoAbsenceMaladie) throws Exception {
@@ -34,23 +36,25 @@ public class AbsenceMaladieService {
         Optional<Collaborateur> colab = collaborateurRepository.findById(idColab);
         Collaborateur collaborateur1 = colab.get();
         System.out.println(collaborateur1);
-
         AbsenceMaladie absenceMaladie = new AbsenceMaladie();
         absenceMaladie.setDocument(document);
         absenceMaladie.setCollaborateur(collaborateur1);
         absenceMaladie.setDateDebut(dtoAbsenceMaladie.getDateDebut());
         absenceMaladie.setDateFin(dtoAbsenceMaladie.getDateFin());
         absenceMaladie.setNombreJours(dtoAbsenceMaladie.getNombreJours());
+        absenceMaladie.setStatus("En cours");
         System.out.println(absenceMaladie);
 
         absenceMaladieRepository.save(absenceMaladie);
 }
 
     public List<AbsenceMaladie> findAllAbsenceMaladie(){
+
         return absenceMaladieRepository.findAll();
     }
 
     public void deleteAbsenceMaladie(Long id){
+
         absenceMaladieRepository.deleteById(id);
     }
 
