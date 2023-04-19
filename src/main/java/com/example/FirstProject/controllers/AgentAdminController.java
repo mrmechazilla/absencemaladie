@@ -20,7 +20,6 @@ public class AgentAdminController {
     }
     @GetMapping("/getAllAgentAdmin")
     public List<AgentAdmin> getAllAgentAdmin(){
-
         return agentAdminService.getAllAgentAdmin();
     }
     @GetMapping("/getAgentAdminById/{id}")

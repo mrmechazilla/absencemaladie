@@ -17,9 +17,11 @@ public class CollaborateurService {
         collaborateurRepository.save(collaborateur);
     }
     public List<Collaborateur> getAllCollaborateurs(){
+
         return collaborateurRepository.findAll();
     }
     public Optional<Collaborateur> getCollaborateurById(Long id){
+
         return collaborateurRepository.findById(id);
     }
 }

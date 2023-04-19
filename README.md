@@ -7,6 +7,7 @@ Hello, this is the backend code for a spring boot application for declaring sick
 - Spring Boot
 - Angular
 - Spring Security with JWT
+- MySQL database
 
 ## To Run this project
 
