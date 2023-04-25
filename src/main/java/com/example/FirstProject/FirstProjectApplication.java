@@ -1,19 +1,22 @@
 package com.example.FirstProject;
 
 import com.example.FirstProject.dto.DTOAbsenceMaladie;
-import com.example.FirstProject.entities.Collaborateur;
-import com.example.FirstProject.entities.Document;
-import com.example.FirstProject.entities.Utilisateur;
+import com.example.FirstProject.entities.*;
 import com.example.FirstProject.repositories.CollaborateurRepository;
 import com.example.FirstProject.repositories.UtilisateurRepository;
 import com.example.FirstProject.services.AbsenceMaladieService;
+import com.example.FirstProject.services.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 @Service
@@ -27,6 +30,14 @@ public class FirstProjectApplication implements CommandLineRunner {
 
 	@Autowired
 	private AbsenceMaladieService absenceMaladieService;
+	@Autowired
+	private AccountService accountService;
+
+	@Bean
+	public PasswordEncoder passwordEncoder()
+	{
+		return new BCryptPasswordEncoder();
+	}
 	public static void main(String[] args) {
 
 		SpringApplication.run(FirstProjectApplication.class, args);
@@ -53,6 +64,18 @@ public class FirstProjectApplication implements CommandLineRunner {
 		datefin = dateFormat1.parse("1999-04-20");
 
 		//absenceMaladieService.saveAbsenceMaladie(4L, new DTOAbsenceMaladie(datedebut, datefin, 2));
+
+
+		accountService.addNewRole(new AppRole(null,"USER"));
+		accountService.addNewRole(new AppRole(null,"ADMIN"));
+
+		System.out.println("SecServicesApplication");
+		accountService.addNewUser(new AppUser(null,"youssef@capgemini.com","BEN YOUSSEF M'hamed","1234",new ArrayList<>()));
+		accountService.addNewUser(new AppUser(null,"aymane@capgemini.com","Aymane","1234",new ArrayList<>()));
+		accountService.addNewUser(new AppUser(null,"nouhaila@capgemini.com","AAMEUR Nouhaila ","1234",new ArrayList<>()));
+		accountService.addNewUser(new AppUser(null,"sidibe@capgemini.com","Sidibe","1234",new ArrayList<>()));
+		accountService.addNewUser(new AppUser(null,"lukmane@capgemini.com","Lukmane","1234",new ArrayList<>()));
+		accountService.addRoleToUser("aymane@capgemini.com","ADMIN");
 	}
 }
 
